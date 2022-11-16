@@ -15,10 +15,12 @@ _fn1(x, function (_err1) {
 });
 
 // 跑一下测试用例，得到的完整 callAsync 函数如下 function callAsync(x, _callback) { fnCode }
+// x 为 new Hook(x) 时传递的参数，new Hook时定义的参数名字回传递给 tap 注册的回调函数
 "use strict";
 var _context;
 // 这里的this，会指向 hook 实例（hook.callAsync），而非 Factory 实例
 // 执行 compile 时，hook._x 会被设置为 tap.map(item => item.fn)
+// 拷贝引用避免被修改
 var _x = this._x;
 do {
   var _counter = 2;
@@ -53,5 +55,3 @@ do {
   });
 } while (false);
 ```
-
-
