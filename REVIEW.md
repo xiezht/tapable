@@ -14,10 +14,11 @@ _fn1(x, function (_err1) {
   }
 });
 
-
-// 跑一下测试用例，得到的完整 callAsync 函数如下
+// 跑一下测试用例，得到的完整 callAsync 函数如下 function callAsync(x, _callback) { fnCode }
 "use strict";
 var _context;
+// 这里的this，会指向 hook 实例（hook.callAsync），而非 Factory 实例
+// 执行 compile 时，hook._x 会被设置为 tap.map(item => item.fn)
 var _x = this._x;
 do {
   var _counter = 2;
@@ -38,9 +39,11 @@ do {
   });
   if (_counter <= 0) break;
   var _fn1 = _x[1];
+  // 这里的 x 是callAsync的第一个参数
   _fn1(x, function (_err1) {
     if (_err1) {
       if (_counter > 0) {
+        // callAsync 的 _callback 参数
         _callback(_err1);
         _counter = 0;
       }
